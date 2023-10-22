@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Options for the power menu
+options=("Poweroff" "Restart" "Logout" "Lock")
+chosen=$(printf '%s\n' "${options[@]}" | rofi -dmenu -i -p "Power Menu")
+
+case "$chosen" in
+    "Lock")
+        # Lock the screen
+        loginctl lock-session
+        ;;
+    "Logout")
+        # Log out the current user
+        pkill -KILL -u $USER
+        ;;
+    "Restart")
+        # Restart the computer
+        systemctl reboot
+        ;;
+    "Poweroff")
+        # Shutdown the computer
+        systemctl poweroff
+        ;;
+    *)
+        # Invalid option or cancelled
+        exit 1
+        ;;
+esac

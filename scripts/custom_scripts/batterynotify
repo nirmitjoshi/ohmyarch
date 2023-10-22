@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Export necessary variables for notifications
+export DISPLAY=:0
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+
+# Battery percentage at which to notify
+LOW_WARNING_LEVEL=20
+HIGH_WARNING_LEVEL=80
+
+# Check battery status and level
+BATTERY_STATUS=$(acpi -b | grep "Battery 0" | awk '{print $3}')
+BATTERY_LEVEL=$(acpi -b | grep "Battery 0" | grep -P -o '[0-9]+(?=%)')
+
+if [ "$BATTERY_STATUS" == "Discharging," ] && [ "$BATTERY_LEVEL" -le "$LOW_WARNING_LEVEL" ]; then
+    notify-send "Low Battery" "${BATTERY_LEVEL}% of battery remaining." -u critical -i "battery-alert" -r 9991
+elif [ "$BATTERY_STATUS" == "Charging," ] && [ "$BATTERY_LEVEL" -ge "$HIGH_WARNING_LEVEL" ]; then
+    notify-send "Battery Charged" "Battery is charged to ${BATTERY_LEVEL}%." -u normal -i "battery-charged" -r 9992
+fi
+
