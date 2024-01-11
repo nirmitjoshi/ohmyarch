@@ -80,12 +80,13 @@ getch
 # Installing base system
 clrscr
 echo -e "Installing Base system and Kernel..."
-pacstrap /mnt base base-devel linux linux-headers linux-firmware --noconfirm --neeed
+pacstrap /mnt base base-devel linux linux-headers linux-firmware --noconfirm --needed
 echo -e "\nBase System and Kernel Installed!"
 sleep 3s
 clrscr
 echo -e "Generating fstab file..."
 genfstab -U /mnt >> /mnt/etc/fstab
 echo -e "Generated /etc/fstab !"
+getch
 sleep 3s
 

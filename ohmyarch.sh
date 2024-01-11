@@ -11,12 +11,12 @@ set +a
 source $install_scripts_dir/functions.sh  # including basic functions
 bash $install_scripts_dir/setup-1.sh
 
-mkdir -p /mnt/tmp
-cp -r ohmyarch /mnt/tmp/
-arch-chroot /mnt tmp/ohmyarch/scripts/install/setup-2.sh
+cd
+cp -r ohmyarch /mnt/
+arch-chroot /mnt ohmyarch/scripts/install/setup-2.sh
 
-source /mnt/tmp/ohmyarch/scripts/install/preferences.sh # for including username
-arch-chroot /mnt /usr/bin/runuser -u $username -- /mnt/tmp/ohmyarch/scripts/install/user_setup.sh
+source /mnt/ohmyarch/scripts/install/preferences.sh # for including username
+arch-chroot /mnt /usr/bin/runuser -u $username -- ohmyarch/scripts/install/user_setup.sh
 
 clrscr
 echo -e "Setup Completed! will Reboot in 10s"

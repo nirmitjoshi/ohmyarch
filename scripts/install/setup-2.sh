@@ -2,8 +2,8 @@
 
 # setup-2.sh ---> run it with arch-chroot /mnt
 
-source /tmp/ohmyarch/scripts/install/functions.sh
-source /tmp/ohmyarch/scripts/install/preferences.sh
+source /ohmyarch/scripts/install/functions.sh
+source /ohmyarch/scripts/install/preferences.sh
 
 # Timezone and Locale Setup
 clrscr

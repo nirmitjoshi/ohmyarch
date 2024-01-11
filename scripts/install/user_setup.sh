@@ -2,8 +2,8 @@
 
 # Setting up Arch the way I love it...
 
-source /tmp/ohmyarch/scripts/install/functions.sh
-source /tmp/ohmyarch/scripts/install/preferences.sh
+source /ohmyarch/scripts/install/functions.sh
+source /ohmyarch/scripts/install/preferences.sh
 
 # Setting up dotfiles
 
