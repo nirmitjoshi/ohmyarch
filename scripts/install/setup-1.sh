@@ -30,7 +30,7 @@ sleep 3s
 
 # BASE INSTALLATION
 # ---------------------------------------------------------------------------------------------------------------
-source $install_scripts_dir/preferences.sh
+source PREF_FILE
 
 # Setting mirrors and enabling parallel downloads
 clrscr
@@ -38,9 +38,6 @@ timedatectl set-ntp true
 pacman -Sy --noconfirm archlinux-keyring
 pacman -S --noconfirm --needed pacman-contrib
 sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
-# Enabling Multilib
-sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
-pacman -Sy --noconfirm --needed
 
 mirror=$(curl -4 ifconfig.co/country-iso)
 reflector -a 48 -c $mirror -f 5 -l 20 --sort rate --save /etc/pacman.d/mirrorlist
@@ -83,7 +80,7 @@ getch
 # Installing base system
 clrscr
 echo -e "Installing Base system and Kernel..."
-pacstrap /mnt base base-devel linux linux-headers linux-firmware --noconfirm -needed
+pacstrap /mnt base base-devel linux linux-headers linux-firmware --noconfirm --neeed
 echo -e "\nBase System and Kernel Installed!"
 sleep 3s
 clrscr
