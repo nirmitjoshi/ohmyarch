@@ -31,7 +31,7 @@ export FZF_DEFAULT_COMMAND="fd --type f --type d --hidden"
 if [ -f "/usr/share/autojump/autojump.sh" ]; then
         . /usr/share/autojump/autojump.sh
 elif [ -f "/usr/share/autojump/autojump.zsh" ]; then
-        . /usr/share/autojump/autojump.bash
+        . /usr/share/autojump/autojump.zsh
 else
         echo "can't found the autojump script"
 fi
