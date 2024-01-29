@@ -36,7 +36,7 @@ else
         echo "can't found the autojump script"
 fi
 
-. .config/firefox/firefox-profile-setup.sh
+. ~/.config/firefox/firefox-profile-setup.sh
 
 # Setting History
 
