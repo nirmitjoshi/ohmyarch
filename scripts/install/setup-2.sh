@@ -15,9 +15,9 @@ echo -e "Done"
 sleep 1s
 
 echo -e "\nSetting up Locale..."
-echo "en_IN.UTF-8 UTF-8" >> /etc/locale.gen
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
-echo "LANG=en_IN,UTF-8" > /etc/locale.conf
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
 echo -e "Done"
 sleep 1s
 
@@ -25,7 +25,7 @@ sleep 1s
 clrscr
 echo -e "Setting up Network..."
 pacman -S --noconfirm --needed networkmanager reflector
-systemctl enable --now NetworkManager
+systemctl enable NetworkManager
 sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 echo -e "Done"
 sleep 1s
@@ -33,8 +33,8 @@ sleep 1s
 # Audio Setup
 clrscr
 echo -e "Setting up Audio..."
-pacman -S --noconfirm --needed bluez bluex-utils pulseaudio pulseaudio-bluetooth pamixer
-systemctl enable --now bluetooth
+pacman -S --noconfirm --needed bluez bluez-utils pulseaudio pulseaudio-bluetooth pamixer
+systemctl enable bluetooth
 echo -e "Done"
 sleep 1s
 
@@ -86,9 +86,9 @@ sleep 1s
 # Installing GRUB
 clrscr
 echo -e "Setting up GRUB..."
-pacman -S --needed -noconfirm grub efibootmgr
-grub-install --target=x86_64-efi --efi-directory=/mnt/boot --bootloader-id=GRUB
-grub-mkconfig -o /mnt/boot/grub/grub.cfg
+pacman -S --needed --noconfirm grub efibootmgr
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+grub-mkconfig -o /boot/grub/grub.cfg
 echo -e "Done"
 
 clrscr

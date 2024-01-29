@@ -28,7 +28,7 @@ clrscr
 echo -e "Installing yay..."
 git clone https://aur.archlinux.org/yay-git.git
 cd yay-git
-sudo makepkg -si
+makepkg -si
 cd ~
 sudo rm -r yay-git
 echo -e "Done"
@@ -52,7 +52,7 @@ sleep 2s
 
 clrscr
 echo -e "Setting up Notifications..."
-sudo pacman -S --noconfirm -needed dunst cronie acpi
+sudo pacman -S --noconfirm --needed dunst cronie acpi
 yay -S --noconfirm brillo
 sudo cp /home/$username/scripts/custom_scripts/power.rules /etc/udev/rules.d/
 command="/home/$username/scripts/custom_scripts/batterynotify"
