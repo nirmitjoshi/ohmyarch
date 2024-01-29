@@ -65,7 +65,7 @@ sleep 1s
 
 clrscr
 echo -e "Setting up Ranger(cli file manager)..."
-sudo pacman -S --noconfirm --needed ranger python-pillow atool mupdf-tool
+yay -S --noconfirm --needed ranger python-pillow atool mupdf-tool python-pdftotext
 echo -e "Done"
 sleep 1s
 
@@ -83,9 +83,9 @@ sleep 1s
 
 clrscr
 echo -e "Installing additonal pkgs..."
-sudo pacman -S --noconfirm --needed firefox neovim obsidian syncthing discord vlc polkit-kde-agent qt5-wayland qt6-wayland
+sudo pacman -S --noconfirm --needed firefox neovim obsidian syncthing npm discord grim slurp vlc polkit-kde-agent kdeconnect wl-clipboard qt5-wayland qt6-wayland
 sudo systemctl --user enable syncthing.service
-yay -S --noconfirm youtube--music-bin github-desktop-bin
+yay -S --noconfirm github-desktop-bin
 echo -e "Done"
 sleep 1s
 
