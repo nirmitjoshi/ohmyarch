@@ -16,8 +16,16 @@ sudo rm -r /home/$username/.config/kitty # ,,
 
 clrscr
 git clone https://github.com/nirmitjoshi/ohmyarch /home/$username/ohmyarch/
+
+mkdir -p /home/$username/scripts/
+mkdir -p /home/$username/wallpaper/
+
 cd /home/$username/ohmyarch/
-stow .
+stow --target=/home/$username/.config .config
+stow --target=/home/$username/scripts scripts
+stow --target=/home/$username/wallpaper wallpaper
+ln -s .zshrc /home/nirmit/.zshrc
+
 cd ~
 echo -e "Done"
 getch
