@@ -18,6 +18,11 @@ alias ldir="ls -l | grep '^d'" # lists directories only
 alias connect-sony="echo -e 'power on\nconnect 84:D3:52:B5:EC:6A\nexit' | bluetoothctl"
 alias disconnect-sony="echo -e 'power on\ndisconnect 84:D3:52:B5:EC:6A\nexit' | bluetoothctl"
 
+snvim ()
+{
+	sudo -Es nvim $1
+}
+
 # Sourcing Plugins
 
 source /home/nirmit/.config/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
