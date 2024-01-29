@@ -94,7 +94,7 @@ sleep 1s
 clrscr
 echo -e "Things left to setup:\n"
 echo -e "1) Obsidian Setup:\n\ti. Git clone the notes\n\tii. Setup Syncthing localhost:8384"
-echo -e "2) Setup Firefox:\n\ti.userChrome.css and user.js\n\tii.Extension:\n\t\ta. Tab Center Reborn CSS\n\t\tb. Tampermonkey Script"
-echo -e "3) Neovim\n"
+echo -e "2) Setup Firefox:\n\ti. Tab Center Reborn CSS\n\t\tii. Tampermonkey Script"
+echo -e "3) Login Github-cli"
 getch
 
