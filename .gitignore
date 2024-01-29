@@ -1,0 +1,4 @@
+.config/nvim/.undodir
+.config/nvim/lazy-lock.json
+.config/nvim/lazyvim.json
+.config/nvim/lua/.luarc.json
