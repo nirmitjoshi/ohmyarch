@@ -19,12 +19,13 @@ git clone https://github.com/nirmitjoshi/ohmyarch /home/$username/ohmyarch/
 
 mkdir -p /home/$username/scripts/
 mkdir -p /home/$username/wallpaper/
+mkdir -p /home/$username/.config/
 
 cd /home/$username/ohmyarch/
 stow --target=/home/$username/.config .config
 stow --target=/home/$username/scripts scripts
 stow --target=/home/$username/wallpaper wallpaper
-ln -s .zshrc /home/nirmit/.zshrc
+cp .zshrc /home/$username/
 
 cd ~
 echo -e "Done"
@@ -102,7 +103,7 @@ sleep 1s
 clrscr
 echo -e "Things left to setup:\n"
 echo -e "1) Obsidian Setup:\n\ti. Git clone the notes\n\tii. Setup Syncthing localhost:8384"
-echo -e "2) Setup Firefox:\n\ti. Tab Center Reborn CSS\n\t\tii. Tampermonkey Script"
+echo -e "2) Setup Firefox Stylesheets:\n\ti. Tab Center Reborn CSS\n\tii. Tampermonkey Script"
 echo -e "3) Login Github-cli"
 getch
 
