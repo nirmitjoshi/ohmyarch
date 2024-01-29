@@ -2,7 +2,7 @@
 
 # Check if the script has been ran before
 if [ -e /tmp/firefox-profile-has-ran ]; then
-    exit 0
+    return 0
 fi
 
 # Create a marker file to indicate that the script has ran
