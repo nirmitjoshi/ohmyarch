@@ -73,7 +73,6 @@ echo -e ACTION==\"change\", SUBSYSTEM==\"power_supply\", ATTR{type}==\"Mains\", 
 
 echo -e ACTION==\"change\", SUBSYSTEM==\"power_supply\", ATTR{type}==\"Mains\", ATTR{online}==\"0\", ENV{DISPLAY}=\":0\", ENV{XAUTHORITY}=\"/home/${username}/.Xauthority\" RUN+=\"/usr/bin/su $username -c \'/home/${username}/scripts/custom_scripts/chargingnotify 0\'\" >> /etc/udev/rules.d/power.rules
 
-sudo udevadm control --reload
 echo -e "Done"
 sleep 1s
 
