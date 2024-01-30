@@ -2,3 +2,4 @@
 .config/nvim/lazy-lock.json
 .config/nvim/lazyvim.json
 .config/nvim/lua/.luarc.json
+.config/lazygit/state.yml
