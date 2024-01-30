@@ -47,7 +47,7 @@ fi
 
 HISTSIZE=10000 # Set the maximum number of history entries to keep
 SAVEHIST=500 # Set the maximum number of lines saved in the history file
-HISTFILE=/tmp/.zsh_history # Specify the location of the history file
+HISTFILE=$HOME/.zsh_history # Specify the location of the history file
 
 setopt INC_APPEND_HISTORY # Append to the history file instead of overwriting it
 setopt HIST_IGNORE_DUPS # Ignore duplicate commands in history
