@@ -63,15 +63,14 @@ clrscr
 echo -e "Setting up Notifications..."
 sudo pacman -S --noconfirm --needed dunst cronie acpi
 yay -S --noconfirm brillo
-sudo cp /home/$username/scripts/custom_scripts/power.rules /etc/udev/rules.d/
 command="/home/$username/scripts/custom_scripts/batterynotify"
 job="*/3 * * * * $command"
 cat <(fgrep -i -v "$command" <(crontab -l)) <(echo "$job") | crontab -
 systemctl enable cronie
 
-echo -e ACTION==\"change\", SUBSYSTEM==\"power_supply\", ATTR{type}==\"Mains\", ATTR{online}==\"1\", ENV{DISPLAY}=\":0\", ENV{XAUTHORITY}=\"/home/${username}/.Xauthority\" RUN+=\"/usr/bin/su $username -c \'/home/${username}/scripts/custom_scripts/chargingnotify 1\'\" >> /etc/udev/rules.d/power.rules
-
-echo -e ACTION==\"change\", SUBSYSTEM==\"power_supply\", ATTR{type}==\"Mains\", ATTR{online}==\"0\", ENV{DISPLAY}=\":0\", ENV{XAUTHORITY}=\"/home/${username}/.Xauthority\" RUN+=\"/usr/bin/su $username -c \'/home/${username}/scripts/custom_scripts/chargingnotify 0\'\" >> /etc/udev/rules.d/power.rules
+INPUT_FILE="/home/$username/scripts/custom_scripts/power.rules"
+OUTPUT_FILE="/etc/udev/rules.d/power.rules"
+awk -v temp="$username" '{gsub(/\$username/, temp)} 1' "$INPUT_FILE" | sudo tee "$OUTPUT_FILE" > /dev/null
 
 echo -e "Done"
 sleep 1s
