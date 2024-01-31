@@ -66,7 +66,7 @@ yay -S --noconfirm brillo
 command="/home/$username/scripts/custom_scripts/batterynotify"
 job="*/3 * * * * $command"
 cat <(fgrep -i -v "$command" <(crontab -l)) <(echo "$job") | crontab -
-systemctl enable cronie
+sudo systemctl enable cronie
 
 INPUT_FILE="/home/$username/scripts/custom_scripts/power.rules"
 OUTPUT_FILE="/etc/udev/rules.d/power.rules"
