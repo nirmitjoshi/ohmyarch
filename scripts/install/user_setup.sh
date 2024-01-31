@@ -97,7 +97,7 @@ sleep 1s
 
 clrscr
 echo -e "Installing additonal pkgs..."
-sudo pacman -S --noconfirm --needed firefox neovim obsidian syncthing npm discord grim slurp vlc ripgrep polkit-kde-agent kdeconnect wl-clipboard github-cli qt5-wayland qt6-wayland
+sudo pacman -S --noconfirm --needed firefox neovim obsidian spotify-launcher syncthing npm discord grim slurp vlc ripgrep polkit-kde-agent kdeconnect wl-clipboard github-cli qt5-wayland qt6-wayland
 sudo systemctl --user enable syncthing.service
 yay -S --noconfirm github-desktop-bin lazygit
 echo -e "Done"
