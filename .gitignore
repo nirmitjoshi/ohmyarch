@@ -3,3 +3,4 @@
 .config/nvim/lazyvim.json
 .config/nvim/lua/.luarc.json
 .config/lazygit/state.yml
+scripts/custom_scripts/discord-rpc
