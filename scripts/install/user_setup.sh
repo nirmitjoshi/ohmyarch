@@ -93,6 +93,16 @@ sudo cp /home/$username/scripts/rofi/rofi-wifi-menu.desktop /usr/share/applicati
 echo -e "Done"
 sleep 1s
 
+# Setting up MAL-Sync discord rpc
+
+mkdir -p /home/$username/scripts/custom_scripts/discord-rpc
+cd /home/$username/scripts/custom_scripts/discord-rpc
+curl -LJO "https://github.com/lolamtisch/Discord-RPC-Extension/releases/latest/download/linux.zip"
+unzip linux.zip
+sudo rm -r linux.zip
+sudo mv server_linux_debug anime_mal_sync
+cd ~
+
 # Installing additional pkgs
 
 clrscr
