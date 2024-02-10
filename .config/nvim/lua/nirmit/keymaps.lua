@@ -7,3 +7,8 @@ vim.keymap.set("v", "k", ":m '>-2<CR>gv=gv")
 vim.keymap.set("v", "<leader>y", '"+y')
 vim.keymap.set("n", "<leader>yy", '"+yy')
 vim.keymap.set("n", "<leader>p", '"+p')
+
+vim.cmd('cnoreabbrev Wq wq')
+vim.cmd('cnoreabbrev WQ wq')
+vim.cmd('cnoreabbrev W w')
+vim.cmd('cnoreabbrev Q q')
