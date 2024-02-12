@@ -41,9 +41,9 @@ return { --Add servers in lsp.lua file to display that language's lsp provided s
 	},
 	{
 		"windwp/nvim-autopairs",
-    event = "InsertEnter",
-    opts = {},
-		config = function ()
+		event = "InsertEnter",
+		opts = {},
+		config = function()
 			local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 			local cmp = require('cmp')
 			cmp.event:on(

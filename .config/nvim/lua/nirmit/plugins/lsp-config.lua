@@ -26,7 +26,7 @@ return {
 			lspconfig.bashls.setup({ capabilities = capabilities })
 			lspconfig.pyright.setup({ capabilities = capabilities })
 
-			vim.diagnostic.config({signs = false})
+			vim.diagnostic.config({ signs = false })
 
 			-- Global keymaps.
 			-- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -44,9 +44,9 @@ return {
 					-- Buffer local mappings.
 					-- See `:help vim.lsp.*` for documentation on any of the below functions
 					local opts = { buffer = ev.buf }
-					vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)              -- Jumps to the definition of the symbol under the cursor.
-					vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)                    -- Shows hover information for the symbol under the cursor.
-					vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)          -- Jumps to the implementation of the symbol under the cursor.
+					vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)    -- Jumps to the definition of the symbol under the cursor.
+					vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)          -- Shows hover information for the symbol under the cursor.
+					vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts) -- Jumps to the implementation of the symbol under the cursor.
 					vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts) -- Provides quick fixes of errors under the cursor.
 					vim.keymap.set('n', '<space>f', function()
 						vim.lsp.buf.format { async = true }

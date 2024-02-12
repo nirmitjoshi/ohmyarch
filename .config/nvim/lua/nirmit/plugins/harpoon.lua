@@ -93,34 +93,34 @@ return {
 					initial_mode = 'insert',
 					attach_mappings = function(_, map)
 						actions.select_default:replace(function(prompt_bufnr)
-								harpoon:list():select(curr_entry.index)
+							harpoon:list():select(curr_entry.index)
 						end)
 
-            -- Delete entries in insert mode from harpoon list with <C-d>
-            map({ 'n', 'i' }, '<C-d>', function(prompt_bufnr)
-                local curr_picker = action_state.get_current_picker(prompt_bufnr)
+						-- Delete entries in insert mode from harpoon list with <C-d>
+						map({ 'n', 'i' }, '<C-d>', function(prompt_bufnr)
+							local curr_picker = action_state.get_current_picker(prompt_bufnr)
 
-                curr_picker:delete_selection(function(selection)
-                    harpoon:list():removeAt(selection.index)
-                end)
-            end)
-            -- Move entries up and down with <C-j> and <C-k>
-            -- Change the keybinding to your liking
-            map({ 'n', 'i' },
-                '<C-j>',
-                function(prompt_bufnr)
-                    move_mark_down(prompt_bufnr, harpoon_files)
-                end
-            )
-            map({ 'n', 'i' },
-                '<C-k>',
-                function(prompt_bufnr)
-                    move_mark_up(prompt_bufnr, harpoon_files)
-                end
-            )
+							curr_picker:delete_selection(function(selection)
+								harpoon:list():removeAt(selection.index)
+							end)
+						end)
+						-- Move entries up and down with <C-j> and <C-k>
+						-- Change the keybinding to your liking
+						map({ 'n', 'i' },
+							'<C-j>',
+							function(prompt_bufnr)
+								move_mark_down(prompt_bufnr, harpoon_files)
+							end
+						)
+						map({ 'n', 'i' },
+							'<C-k>',
+							function(prompt_bufnr)
+								move_mark_up(prompt_bufnr, harpoon_files)
+							end
+						)
 
-            return true
-        end
+						return true
+					end
 				}):find()
 			end
 
