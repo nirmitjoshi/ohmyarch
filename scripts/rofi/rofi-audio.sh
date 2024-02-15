@@ -19,7 +19,7 @@ case "$action" in
 
         # Set the new volume level using pamixer
         pamixer --set-volume $volume_change
-        dunstify -a "changevolume" -u normal -r 9993 "VOlume set to: ${volume_change}%" -t 2000
+        dunstify -a "changevolume" -u normal -r 9993 "Volume set to: ${volume_change}%" -t 2000
 
         ;;
     "Change Output Device")
