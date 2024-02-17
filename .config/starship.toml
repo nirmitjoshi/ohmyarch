@@ -1,122 +1,159 @@
 format = """
-[](#434C5E)\
+[](surface0)\
+$os\
+$username\
+[](bg:red fg:surface0)\
 $directory\
-[](fg:#434C5E bg:#4C566A)\
+[](fg:red bg:peach)\
 $git_branch\
 $git_status\
-[](fg:#4C566A bg:#86BBD8)\
+[](fg:peach bg:teagreen)\
 $c\
-$elixir\
-$elm\
-$golang\
-$haskell\
-$java\
-$julia\
-$nodejs\
-$nim\
 $rust\
-[](fg:#86BBD8 bg:#06969A)\
+$golang\
+$nodejs\
+$php\
+$java\
+$kotlin\
+$haskell\
+$python\
+[](fg:teagreen bg:blue)\
 $docker_context\
-[](fg:#06969A bg:#33658A)\
+[](fg:blue bg:purple)\
 $time\
-[ ](fg:#33658A)\
-"""
-command_timeout = 5000
-# Disable the blank line at the start of the prompt
-# add_newline = false
+[ ](fg:purple)\
+$line_break$character"""
 
-# You can also replace your username with a neat symbol like  to save some space
+palette = 'catppuccin_mocha_mix'
+
+[palettes.catppuccin_mocha_mix]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+orange = "#cba6f7"
+red = "#ffadad"
+maroon = "#eba0ac"
+purple = "#bdb2ff"
+peach = "#ffd6a5"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teagreen = "#caffbf"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#9bf6ff"
+lavender = "#b4befe"
+text = "#D4DCF6"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
+
+[os]
+disabled = false
+style = "bg:surface0 fg:text"
+
+[os.symbols]
+Arch = "󰣇"
+
 [username]
-show_always = false
-style_user = "bg:#3B4252"
-style_root = "bg:#3B4252"
-format = '[$user ]($style)'
+show_always = true
+style_user = "bg:surface0 fg:text"
+style_root = "bg:surface0 fg:text"
+format = '[ $user ]($style)'
 
 [directory]
-style = "bg:#434C5E"
+style = "fg:mantle bg:red"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
 
-# Here is how you can shorten some long paths by text replacement
-# similar to mapped_locations in Oh My Posh:
 [directory.substitutions]
-"Documents" = " "
+"Documents" = "󰈙 "
 "Downloads" = " "
-"Music" = " "
+"Music" = "󰝚 "
 "Pictures" = " "
-# Keep in mind that the order matters. For example:
-# "Important Documents" = "  "
-# will not be replaced, because "Documents" was already substituted before.
-# So either put "Important Documents" before "Documents" or use the substituted version:
-# "Important  " = "  "
-
-[c]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
-[docker_context]
-symbol = " "
-style = "bg:#06969A"
-format = '[ $symbol $context ]($style) $path'
-
-[elixir]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
-[elm]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+"Developer" = "󰲋 "
 
 [git_branch]
-symbol = ""
-style = "bg:#4C566A"
-format = '[ $symbol $branch ]($style)'
+symbol = ""
+style = "bg:teagreen"
+format = '[[ $symbol $branch ](fg:base bg:peach)]($style)'
 
 [git_status]
-style = "bg:#4C566A"
-format = '[$all_status$ahead_behind ]($style)'
-
-[golang]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
-[haskell]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
-[java]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
-[julia]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+style = "bg:teagreen"
+format = '[[($all_status$ahead_behind )](fg:base bg:peach)]($style)'
 
 [nodejs]
 symbol = ""
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+style = "bg:teagreen"
+format = '[[ $symbol( $version) ](fg:base bg:teagreen)]($style)'
 
-[nim]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+[c]
+symbol = " "
+style = "bg:teagreen"
+format = '[[ $symbol( $version) ](fg:base bg:teagreen)]($style)'
 
 [rust]
 symbol = ""
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+style = "bg:teagreen"
+format = '[[ $symbol( $version) ](fg:base bg:teagreen)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:teagreen"
+format = '[[ $symbol( $version) ](fg:base bg:teagreen)]($style)'
+
+[php]
+symbol = ""
+style = "bg:teagreen"
+format = '[[ $symbol( $version) ](fg:base bg:teagreen)]($style)'
+
+[java]
+symbol = " "
+style = "bg:teagreen"
+format = '[[ $symbol( $version) ](fg:base bg:teagreen)]($style)'
+
+[kotlin]
+symbol = ""
+style = "bg:teagreen"
+format = '[[ $symbol( $version) ](fg:base bg:teagreen)]($style)'
+
+[haskell]
+symbol = ""
+style = "bg:teagreen"
+format = '[[ $symbol( $version) ](fg:base bg:teagreen)]($style)'
+
+[python]
+symbol = ""
+style = "bg:teagreen"
+format = '[[ $symbol( $version) ](fg:base bg:teagreen)]($style)'
+
+[docker_context]
+symbol = ""
+style = "bg:mantle"
+format = '[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)'
 
 [time]
 disabled = false
-time_format = "%I:%M %p" # Hour:Minute Format
-style = "bg:#33658A"
-format = '[ $time ]($style)'
+time_format = "%R"
+style = "bg:purple"
+format = '[[ $time ](fg:mantle bg:purple)]($style)'
+
+[line_break]
+disabled = false
+
+[character]
+disabled = false
+success_symbol = '[](bold fg:purple)'
+error_symbol = '[](bold fg:red)'
+vimcmd_symbol = '[](bold fg:purple)'
+vimcmd_replace_one_symbol = '[](bold fg:blue)'
+vimcmd_replace_symbol = '[](bold fg:blue)'
+vimcmd_visual_symbol = '[](bold fg:lavender)'
