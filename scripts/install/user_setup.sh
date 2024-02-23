@@ -57,6 +57,11 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git /home/$username/.
 echo -e "\nDone"
 sleep 2s
 
+# Setting up zram
+yay -S --noconfirm zramswap
+sudo sed -i 's/^ZRAM_SIZE_PERCENT=.*/ZRAM_SIZE_PERCENT="300"/' /etc/zramswap.conf
+sudo systemctl enable zramswap
+
 # Setting up Notifications
 
 clrscr
