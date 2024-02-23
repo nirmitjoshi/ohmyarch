@@ -3,6 +3,9 @@ return { --Add servers in lsp.lua file to display that language's lsp provided s
 		"hrsh7th/cmp-nvim-lsp"
 	},
 	{
+		"github/copilot.vim"
+	},
+	{
 		"L3MON4D3/LuaSnip",
 		dependencies = { "saadparwaiz1/cmp_luasnip", "rafamadriz/friendly-snippets" }
 	},
