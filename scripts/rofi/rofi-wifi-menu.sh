@@ -1,14 +1,18 @@
 #!/usr/bin/env bash
 
+wifi_status=$(nmcli -fields WIFI g)
+if [[ "$wifi_status" =~ "disabled" ]]; then
+    nmcli radio wifi on
+fi
 
 # Get a list of available wifi connections and morph it into a nice-looking list
 wifi_list=$(nmcli --fields "SECURITY,SSID" device wifi list | sed 1d | sed 's/  */ /g' | sed -E "s/WPA*.?\S/ /g" | sed "s/^--/ /g" | sed "s/  //g" | sed "/--/d")
 
 connected=$(nmcli -fields WIFI g)
 if [[ "$connected" =~ "enabled" ]]; then
-	toggle="睊 Disable Wi-Fi"
+	toggle="󰖪 Disable Wi-Fi"
 elif [[ "$connected" =~ "disabled" ]]; then
-	toggle="直 Enable Wi-Fi"
+	toggle=" Enable Wi-Fi"
 fi
 
 # Use rofi to select wifi network
@@ -18,9 +22,9 @@ chosen_id=$(echo "${chosen_network:3}" | xargs)
 
 if [ "$chosen_network" = "" ]; then
 	exit
-elif [ "$chosen_network" = "直 Enable Wi-Fi" ]; then
+elif [ "$chosen_network" = " Enable Wi-Fi" ]; then
 	nmcli radio wifi on
-elif [ "$chosen_network" = "睊 Disable Wi-Fi" ]; then
+elif [ "$chosen_network" = "󰖪 Disable Wi-Fi" ]; then
 	nmcli radio wifi off
 else
 	# Message to show when connection is activated successfully
