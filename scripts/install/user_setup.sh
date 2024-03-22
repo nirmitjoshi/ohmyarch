@@ -91,8 +91,8 @@ sleep 1s
 # Setting up Applications manager
 
 clrscr
-echo -e "Setting up Rofi(applications manager)..."
-sudo pacman -S --noconfirm --needed rofi
+echo -e "Setting up Rofi(wayland fork)..."
+yay -S --noconfirm --needed rofi-lbonn-wayland-git
 sudo cp /home/$username/scripts/rofi/rofi-audio.desktop /usr/share/applications/
 sudo cp /home/$username/scripts/rofi/rofi-wifi-menu.desktop /usr/share/applications/
 echo -e "Done"
