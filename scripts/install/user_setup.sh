@@ -112,9 +112,9 @@ cd ~
 
 clrscr
 echo -e "Installing additonal pkgs..."
-sudo pacman -S --noconfirm --needed firefox neovim obsidian syncthing npm discord grim slurp vlc ripgrep polkit-kde-agent kdeconnect wl-clipboard github-cli qt5-wayland qt6-wayland
+sudo pacman -S --noconfirm --needed neovim obsidian syncthing npm grim slurp vlc ripgrep polkit-kde-agent kdeconnect wl-clipboard github-cli qt5-wayland qt6-wayland
 systemctl --user enable syncthing.service
-yay -S --noconfirm github-desktop-bin lazygit
+yay -S --noconfirm zen-browser-bin vesktop
 echo -e "Done"
 sleep 1s
 
@@ -123,7 +123,5 @@ sleep 1s
 clrscr
 echo -e "Things left to setup:\n"
 echo -e "1) Obsidian Setup:\n\ti. Git clone the notes\n\tii. Setup Syncthing localhost:8384"
-echo -e "2) Setup Firefox Stylesheets:\n\ti. Tab Center Reborn CSS\n\tii. Tampermonkey Script"
-echo -e "3) Login Github-cli"
 getch
 

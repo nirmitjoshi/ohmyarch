@@ -9,7 +9,7 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "rust_analyzer", "gopls", "tsserver", "bashls", "pyright", "html", "htmx", "templ" },
+				ensure_installed = { "lua_ls", "rust_analyzer", "gopls", "ts_ls", "bashls", "pyright", "html", "htmx", "templ", "clangd"},
 			})
 		end
 	},
@@ -22,12 +22,13 @@ return {
 			lspconfig.lua_ls.setup({ capabilities = capabilities })
 			lspconfig.rust_analyzer.setup({ capabilities = capabilities })
 			lspconfig.gopls.setup({ capabilities = capabilities })
-			lspconfig.tsserver.setup({ capabilities = capabilities })
+			lspconfig.ts_ls.setup({ capabilities = capabilities })
 			lspconfig.bashls.setup({ capabilities = capabilities })
 			lspconfig.pyright.setup({ capabilities = capabilities })
 			lspconfig.html.setup({ capabilities = capabilities })
 			lspconfig.htmx.setup({ capabilities = capabilities })
 			lspconfig.templ.setup({ capabilities = capabilities })
+			lspconfig.clangd.setup({ capabilities = capabilities })
 
 			vim.diagnostic.config({ signs = false })
 

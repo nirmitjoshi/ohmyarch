@@ -8,8 +8,8 @@ clrscr
 
 # creating preferences file:
 PREF_FILE=$install_scripts_dir/preferences.sh
-if [ ! -f $PREF_FILE ]; then # checks if file exists
-  touch -f $PREF_FILE # creates file if it does not exist
+if [ ! -f $PREF_FILE ]; then
+  touch -f $PREF_FILE
 fi
 
 bg_check

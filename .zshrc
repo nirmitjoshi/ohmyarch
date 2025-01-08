@@ -1,13 +1,11 @@
 eval "$(starship init zsh)"
 
-# Setting Default Editor
-
+#defaults 
 export EDITOR=nvim
 export VISUAL=nvim
 export PATH=$PATH:/home/nirmit/go/bin/
 
-# Aliases
-
+# aliases
 alias vi=nvim
 alias ls='ls -aFh --color=always'
 alias cp='cp -i'
@@ -23,16 +21,14 @@ snvim ()
 	sudo -Es nvim $1
 }
 
-# Sourcing Plugins
-
+#plugins
 source /home/nirmit/.config/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /home/nirmit/.config/zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # fzf search for hidden files options
 export FZF_DEFAULT_COMMAND="fd --type f --type d --hidden"
 
-# Enabling up autojump
-
+#autojump
 if [ -f "/usr/share/autojump/autojump.sh" ]; then
         . /usr/share/autojump/autojump.sh
 elif [ -f "/usr/share/autojump/autojump.zsh" ]; then
@@ -41,10 +37,7 @@ else
         echo "can't found the autojump script"
 fi
 
-. ~/.config/firefox/firefox-profile-setup.sh
-
-# Setting History
-
+#history
 HISTSIZE=10000 # Set the maximum number of history entries to keep
 SAVEHIST=500 # Set the maximum number of lines saved in the history file
 HISTFILE=$HOME/.zsh_history # Specify the location of the history file
