@@ -57,16 +57,24 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git /home/$username/.
 echo -e "\nDone"
 sleep 2s
 
-# Setting up zram
-yay -S --noconfirm zramswap
-sudo sed -i 's/^ZRAM_SIZE_PERCENT=.*/ZRAM_SIZE_PERCENT="300"/' /etc/zramswap.conf
-sudo systemctl enable zramswap
+# Setting up zram 300% of ram size
+
+total_ram=$(grep MemTotal /proc/meminfo | awk '{print $2 * 1024 * 3}')
+echo "zram" | sudo tee /etc/modules-load.d/zram.conf
+
+cat << EOF | sudo tee /etc/udev/rules.d/99-zram.rules
+ACTION=="add", KERNEL=="zram0", ATTR{comp_algorithm}="lz4", ATTR{disksize}="$total_ram", RUN="/usr/bin/mkswap -U clear /dev/%k", TAG+="systemd"
+EOF
+
+if ! grep -q "/dev/zram0" /etc/fstab; then
+    echo "/dev/zram0 none swap defaults,discard,pri=100 0 0" | sudo tee -a /etc/fstab
+fi
 
 # Setting up Notifications
 
 clrscr
 echo -e "Setting up Notifications..."
-sudo pacman -S --noconfirm --needed dunst cronie acpi
+sudo pacman -S --noconfirm --needed libnotify dunst cronie acpi
 yay -S --noconfirm brillo
 command="/home/$username/scripts/custom_scripts/batterynotify"
 job="*/3 * * * * $command"
@@ -100,21 +108,24 @@ sleep 1s
 
 # Setting up MAL-Sync discord rpc
 
+sudo pacman -S --noconfirm --needed unzip
 mkdir -p /home/$username/scripts/custom_scripts/discord-rpc
 cd /home/$username/scripts/custom_scripts/discord-rpc
 curl -LJO "https://github.com/lolamtisch/Discord-RPC-Extension/releases/latest/download/linux.zip"
 unzip linux.zip
 sudo rm -r linux.zip
 sudo mv server_linux_debug anime_mal_sync
+chmod +x anime_mal_sync
 cd ~
 
 # Installing additional pkgs
 
 clrscr
 echo -e "Installing additonal pkgs..."
-sudo pacman -S --noconfirm --needed neovim obsidian syncthing npm grim slurp vlc ripgrep polkit-kde-agent kdeconnect wl-clipboard github-cli qt5-wayland qt6-wayland
+sudo pacman -S --noconfirm --needed neovim obsidian syncthing npm grim slurp vlc ripgrep rustup tree polkit-kde-agent kdeconnect wl-clipboard github-cli qt5-wayland qt6-wayland
+rustup default stable
 systemctl --user enable syncthing.service
-yay -S --noconfirm zen-browser-bin vesktop
+yay -S --noconfirm zen-browser-bin vesktop hyprsome-git
 echo -e "Done"
 sleep 1s
 
