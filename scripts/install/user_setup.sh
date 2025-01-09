@@ -57,9 +57,9 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git /home/$username/.
 echo -e "\nDone"
 sleep 2s
 
-# Setting up zram 300% of ram size
+# Setting up zram 200% of ram size
 
-total_ram=$(grep MemTotal /proc/meminfo | awk '{print $2 * 1024 * 3}')
+total_ram=$(grep MemTotal /proc/meminfo | awk '{print $2 * 1024 * 2}')
 echo "zram" | sudo tee /etc/modules-load.d/zram.conf
 
 cat << EOF | sudo tee /etc/udev/rules.d/99-zram.rules
