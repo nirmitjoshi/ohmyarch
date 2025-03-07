@@ -1,12 +1,10 @@
 #!/bin/bash
 
 # Setting up Arch the way I love it...
-
 source /ohmyarch/scripts/install/functions.sh
 source /ohmyarch/scripts/install/preferences.sh
 
 # Setting up dotfiles
-
 clrscr
 echo -e "Setting up Hyprland..."
 sudo pacman -S --needed --noconfirm hyprland hyprpaper kitty git stow
@@ -32,7 +30,6 @@ echo -e "Done"
 getch
 
 # Setting up yay
-
 clrscr
 echo -e "Installing yay..."
 git clone https://aur.archlinux.org/yay-git.git
@@ -44,7 +41,6 @@ echo -e "Done"
 sleep 1s
 
 # Setting up shell(zsh)
-
 clrscr
 echo -e "Installing and Configuring zsh..."
 sudo pacman -S --noconfirm --needed zsh fd fzf
@@ -58,7 +54,6 @@ echo -e "\nDone"
 sleep 2s
 
 # Setting up zram 200% of ram size
-
 total_ram=$(grep MemTotal /proc/meminfo | awk '{print $2 * 1024 * 2}')
 echo "zram" | sudo tee /etc/modules-load.d/zram.conf
 
@@ -71,7 +66,6 @@ if ! grep -q "/dev/zram0" /etc/fstab; then
 fi
 
 # Setting up Notifications
-
 clrscr
 echo -e "Setting up Notifications..."
 sudo pacman -S --noconfirm --needed libnotify dunst cronie acpi
@@ -89,7 +83,6 @@ echo -e "Done"
 sleep 1s
 
 # Setting up Filemanager
-
 clrscr
 echo -e "Setting up Ranger(cli file manager)..."
 yay -S --noconfirm --needed ranger python-pillow atool mupdf-tool python-pdftotext
@@ -97,7 +90,6 @@ echo -e "Done"
 sleep 1s
 
 # Setting up Applications manager
-
 clrscr
 echo -e "Setting up Rofi(wayland fork)..."
 yay -S --noconfirm --needed rofi-lbonn-wayland-git
@@ -106,23 +98,10 @@ sudo cp /home/$username/scripts/rofi/rofi-wifi-menu.desktop /usr/share/applicati
 echo -e "Done"
 sleep 1s
 
-# Setting up MAL-Sync discord rpc
-
-sudo pacman -S --noconfirm --needed unzip
-mkdir -p /home/$username/scripts/custom_scripts/discord-rpc
-cd /home/$username/scripts/custom_scripts/discord-rpc
-curl -LJO "https://github.com/lolamtisch/Discord-RPC-Extension/releases/latest/download/linux.zip"
-unzip linux.zip
-sudo rm -r linux.zip
-sudo mv server_linux_debug anime_mal_sync
-chmod +x anime_mal_sync
-cd ~
-
 # Installing additional pkgs
-
 clrscr
 echo -e "Installing additonal pkgs..."
-sudo pacman -S --noconfirm --needed neovim obsidian syncthing npm grim slurp vlc ripgrep rustup tree polkit-kde-agent kdeconnect wl-clipboard github-cli qt5-wayland qt6-wayland
+sudo pacman -S --noconfirm --needed neovim obsidian syncthing npm grim slurp vlc ripgrep rustup tree polkit-kde-agent kdeconnect wl-clipboard github-cli qt5-wayland qt6-wayland unzip
 rustup default stable
 systemctl --user enable syncthing.service
 yay -S --noconfirm zen-browser-bin vesktop hyprsome-git
@@ -130,9 +109,7 @@ echo -e "Done"
 sleep 1s
 
 # Personal Comments
-
 clrscr
 echo -e "Things left to setup:\n"
 echo -e "1) Obsidian Setup:\n\ti. Git clone the notes\n\tii. Setup Syncthing localhost:8384"
 getch
-

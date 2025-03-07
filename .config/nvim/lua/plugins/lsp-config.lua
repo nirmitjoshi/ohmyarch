@@ -9,9 +9,35 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "rust_analyzer", "gopls", "ts_ls", "bashls", "pyright", "html", "htmx", "templ", "clangd"},
+				ensure_installed = { "lua_ls", "rust_analyzer", "gopls", "ts_ls", "bashls", "pyright", "html", "clangd", "cssls" },
 			})
 		end
+	},
+	{
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		config = function()
+			require("mason-tool-installer").setup({
+				ensure_installed = {
+					"yapf",
+					"shfmt",
+					"prettier"
+				},
+			})
+		end,
+	},
+	{
+		"jose-elias-alvarez/null-ls.nvim",
+		config = function()
+			local null_ls = require("null-ls")
+
+			null_ls.setup({
+				sources = {
+					null_ls.builtins.formatting.yapf.with({ extra_args = { "--style={based_on_style: google, indent_width: 2}" } }),
+					null_ls.builtins.formatting.shfmt,
+					null_ls.builtins.formatting.prettier,
+				},
+			})
+		end,
 	},
 	{
 		"neovim/nvim-lspconfig",
@@ -26,18 +52,13 @@ return {
 			lspconfig.bashls.setup({ capabilities = capabilities })
 			lspconfig.pyright.setup({ capabilities = capabilities })
 			lspconfig.html.setup({ capabilities = capabilities })
-			lspconfig.htmx.setup({ capabilities = capabilities })
-			lspconfig.templ.setup({ capabilities = capabilities })
+			lspconfig.cssls.setup({ capabilities = capabilities })
 			lspconfig.clangd.setup({ capabilities = capabilities })
 
 			vim.diagnostic.config({ signs = false })
 
 			-- Global keymaps.
-			-- See `:help vim.diagnostic.*` for documentation on any of the below functions
 			vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float)
-			-- vim.keymap.set('n', '<C-p>', vim.diagnostic.goto_prev)
-			-- vim.keymap.set('n', '<C-n>', vim.diagnostic.goto_next)
-			-- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
 			-- Keymaps after the language server attaches to the current buffer
 			vim.api.nvim_create_autocmd('LspAttach', {
@@ -46,11 +67,10 @@ return {
 					vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
 					-- Buffer local mappings.
-					-- See `:help vim.lsp.*` for documentation on any of the below functions
 					local opts = { buffer = ev.buf }
-					vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)    -- Jumps to the definition of the symbol under the cursor.
-					vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)          -- Shows hover information for the symbol under the cursor.
-					vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts) -- Jumps to the implementation of the symbol under the cursor.
+					vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)              -- Jumps to the definition of the symbol under the cursor.
+					vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)                    -- Shows hover information for the symbol under the cursor.
+					vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)          -- Jumps to the implementation of the symbol under the cursor.
 					vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts) -- Provides quick fixes of errors under the cursor.
 					vim.keymap.set('n', '<space>f', function()
 						vim.lsp.buf.format { async = true }

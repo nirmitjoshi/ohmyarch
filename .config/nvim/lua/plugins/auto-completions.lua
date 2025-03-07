@@ -14,7 +14,6 @@ return { --Add servers in lsp.lua file to display that language's lsp provided s
 
 			cmp.setup({
 				snippet = {
-					-- REQUIRED - you must specify a snippet engine
 					expand = function(args)
 						require('luasnip').lsp_expand(args.body)
 					end,
