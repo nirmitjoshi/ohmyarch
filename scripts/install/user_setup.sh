@@ -7,7 +7,7 @@ source /ohmyarch/scripts/install/preferences.sh
 # Setting up dotfiles
 clrscr
 echo -e "Setting up Hyprland..."
-sudo pacman -S --needed --noconfirm hyprland hyprpaper kitty git stow
+sudo pacman -S --needed --noconfirm hyprland hyprpaper hyprlock kitty git stow
 
 sudo rm -r /home/$username/.config/hypr # had errors in stow due to pre-created config files
 sudo rm -r /home/$username/.config/kitty # ,,
