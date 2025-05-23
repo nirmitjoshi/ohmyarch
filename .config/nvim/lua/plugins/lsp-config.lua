@@ -26,13 +26,18 @@ return {
 		end,
 	},
 	{
-		"jose-elias-alvarez/null-ls.nvim",
+		"nvimtools/none-ls.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			local null_ls = require("null-ls")
 
 			null_ls.setup({
 				sources = {
-					null_ls.builtins.formatting.yapf.with({ extra_args = { "--style={based_on_style: google, indent_width: 2}" } }),
+					null_ls.builtins.formatting.yapf.with({
+						extra_args = {
+							"--style={based_on_style: google, indent_width: 4}",
+						},
+					}),
 					null_ls.builtins.formatting.shfmt,
 					null_ls.builtins.formatting.prettier,
 				},
