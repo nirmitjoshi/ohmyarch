@@ -101,9 +101,11 @@ sleep 1s
 # Installing additional pkgs
 clrscr
 echo -e "Installing additonal pkgs..."
-sudo pacman -S --noconfirm --needed neovim obsidian syncthing npm grim slurp vlc ripgrep rustup tree polkit-kde-agent kdeconnect wl-clipboard github-cli qt5-wayland qt6-wayland unzip
+sudo pacman -S --noconfirm --needed neovim obsidian syncthing npm grim slurp vlc ripgrep rustup tree polkit-kde-agent kdeconnect wl-clipboard github-cli qt5-wayland qt6-wayland unzip openssh docker pavucontrol
 rustup default stable
 systemctl --user enable syncthing.service
+sudo systemctl start docker.service
+sudo systemctl enable docker.service
 yay -S --noconfirm zen-browser-bin vesktop hyprsome-git
 echo -e "Done"
 sleep 1s
