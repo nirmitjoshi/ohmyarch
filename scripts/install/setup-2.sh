@@ -15,9 +15,9 @@ echo -e "Done"
 sleep 1s
 
 echo -e "\nSetting up Locale..."
-echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+echo "en_US.UTF-8 UTF-8" >>/etc/locale.gen
 locale-gen
-echo "LANG=en_US.UTF-8" > /etc/locale.conf
+echo "LANG=en_US.UTF-8" >/etc/locale.conf
 echo -e "Done"
 sleep 1s
 
@@ -43,24 +43,24 @@ clrscr
 echo -e "Installing Drivers and Microcode..."
 
 proc_type=$(lscpu)
-if grep -E "GenuineIntel" <<< ${proc_type}; then
-    echo "Installing Intel microcode"
-    pacman -S --noconfirm --needed intel-ucode
-elif grep -E "AuthenticAMD" <<< ${proc_type}; then
-    echo "Installing AMD microcode"
-    pacman -S --noconfirm --needed amd-ucode
+if grep -E "GenuineIntel" <<<${proc_type}; then
+	echo "Installing Intel microcode"
+	pacman -S --noconfirm --needed intel-ucode
+elif grep -E "AuthenticAMD" <<<${proc_type}; then
+	echo "Installing AMD microcode"
+	pacman -S --noconfirm --needed amd-ucode
 fi
 
 gpu_type=$(lspci)
-if grep -E "NVIDIA|GeForce" <<< ${gpu_type}; then
-    pacman -S --noconfirm --needed nvidia
+if grep -E "NVIDIA|GeForce" <<<${gpu_type}; then
+	pacman -S --noconfirm --needed nvidia
 	nvidia-xconfig
 elif lspci | grep 'VGA' | grep -E "Radeon|AMD"; then
-    pacman -S --noconfirm --needed xf86-video-amdgpu
-elif grep -E "Integrated Graphics Controller" <<< ${gpu_type}; then
-    pacman -S --noconfirm --needed libva-intel-driver libvdpau-va-gl lib32-vulkan-intel vulkan-intel libva-intel-driver libva-utils lib32-mesa
-elif grep -E "Intel Corporation UHD" <<< ${gpu_type}; then
-    pacman -S --needed --noconfirm libva-intel-driver libvdpau-va-gl lib32-vulkan-intel vulkan-intel libva-intel-driver libva-utils lib32-mesa
+	pacman -S --noconfirm --needed xf86-video-amdgpu
+elif grep -E "Integrated Graphics Controller" <<<${gpu_type}; then
+	pacman -S --noconfirm --needed libva-intel-driver libvdpau-va-gl lib32-vulkan-intel vulkan-intel libva-intel-driver libva-utils lib32-mesa
+elif grep -E "Intel Corporation UHD" <<<${gpu_type}; then
+	pacman -S --needed --noconfirm libva-intel-driver libvdpau-va-gl lib32-vulkan-intel vulkan-intel libva-intel-driver libva-utils lib32-mesa
 fi
 
 echo -e "Done"
@@ -69,16 +69,16 @@ sleep 1s
 # Setting Hosts and Users
 clrscr
 echo -e "Setting up Hosts and Users..."
-echo $hostname > /etc/hostname
-echo "127.0.0.1   localhost" >> /etc/hosts
-echo "::1         localhost" >> /etc/hosts
-echo "127.0.1.1   ${hostname}.localdomain $hostname" >> /etc/hosts
+echo $hostname >/etc/hostname
+echo "127.0.0.1   localhost" >>/etc/hosts
+echo "::1         localhost" >>/etc/hosts
+echo "127.0.1.1   ${hostname}.localdomain $hostname" >>/etc/hosts
 
 echo "root:$root_pass" | chpasswd
 
 useradd -m -G wheel -s /bin/bash $username
 echo "$username:$user_pass" | chpasswd
-sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers #giving sudo access
+sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers         #giving sudo access
 sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers #passwordless sudo access
 echo -e "Done"
 sleep 1s
@@ -95,4 +95,3 @@ clrscr
 echo -e "Basic Arch Setup Completed!"
 echo -e "\nProceeding with User Setup..."
 getch
-

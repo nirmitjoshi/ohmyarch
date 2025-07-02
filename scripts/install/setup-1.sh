@@ -9,7 +9,7 @@ clrscr
 # creating preferences file:
 PREF_FILE=$install_scripts_dir/preferences.sh
 if [ ! -f $PREF_FILE ]; then
-  touch -f $PREF_FILE
+	touch -f $PREF_FILE
 fi
 
 bg_check
@@ -67,12 +67,12 @@ mount -t vfat ${disk}1 /mnt/boot
 mount -t ext4 ${disk}3 /mnt/home
 
 if ! grep -qs '/mnt' /proc/mounts; then
-    echo "Drive is not mounted, Cannot Continue! System will be rebooted"
-    getch
-    echo "Rebooting in 3 Seconds ..." && sleep 1
-    echo "Rebooting in 2 Seconds ..." && sleep 1
-    echo "Rebooting in 1 Second ..." && sleep 1
-    reboot now
+	echo "Drive is not mounted, Cannot Continue! System will be rebooted"
+	getch
+	echo "Rebooting in 3 Seconds ..." && sleep 1
+	echo "Rebooting in 2 Seconds ..." && sleep 1
+	echo "Rebooting in 1 Second ..." && sleep 1
+	reboot now
 fi
 echo -e "\n\nDisk Setup Completed!"
 getch
@@ -85,8 +85,7 @@ echo -e "\nBase System and Kernel Installed!"
 sleep 3s
 clrscr
 echo -e "Generating fstab file..."
-genfstab -U /mnt >> /mnt/etc/fstab
+genfstab -U /mnt >>/mnt/etc/fstab
 echo -e "Generated /etc/fstab !"
 getch
 sleep 3s
-

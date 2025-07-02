@@ -9,7 +9,7 @@ clrscr
 echo -e "Setting up Hyprland..."
 sudo pacman -S --needed --noconfirm hyprland hyprpaper hyprlock kitty git stow
 
-sudo rm -r /home/$username/.config/hypr # had errors in stow due to pre-created config files
+sudo rm -r /home/$username/.config/hypr  # had errors in stow due to pre-created config files
 sudo rm -r /home/$username/.config/kitty # ,,
 
 clrscr
@@ -57,12 +57,12 @@ sleep 2s
 total_ram=$(grep MemTotal /proc/meminfo | awk '{print $2 * 1024 * 2}')
 echo "zram" | sudo tee /etc/modules-load.d/zram.conf
 
-cat << EOF | sudo tee /etc/udev/rules.d/99-zram.rules
+cat <<EOF | sudo tee /etc/udev/rules.d/99-zram.rules
 ACTION=="add", KERNEL=="zram0", ATTR{comp_algorithm}="lz4", ATTR{disksize}="$total_ram", RUN="/usr/bin/mkswap -U clear /dev/%k", TAG+="systemd"
 EOF
 
 if ! grep -q "/dev/zram0" /etc/fstab; then
-    echo "/dev/zram0 none swap defaults,discard,pri=100 0 0" | sudo tee -a /etc/fstab
+	echo "/dev/zram0 none swap defaults,discard,pri=100 0 0" | sudo tee -a /etc/fstab
 fi
 
 # Setting up Notifications
@@ -77,15 +77,15 @@ sudo systemctl enable cronie
 
 INPUT_FILE="/home/$username/scripts/custom_scripts/power.rules"
 OUTPUT_FILE="/etc/udev/rules.d/power.rules"
-awk -v temp="$username" '{gsub(/\$username/, temp)} 1' "$INPUT_FILE" | sudo tee "$OUTPUT_FILE" > /dev/null
+awk -v temp="$username" '{gsub(/\$username/, temp)} 1' "$INPUT_FILE" | sudo tee "$OUTPUT_FILE" >/dev/null
 
 echo -e "Done"
 sleep 1s
 
 # Setting up Filemanager
 clrscr
-echo -e "Setting up Ranger(cli file manager)..."
-yay -S --noconfirm --needed ranger python-pillow atool mupdf-tool python-pdftotext
+echo -e "Setting up Ranger(cli file manager) && Nautilus..."
+yay -S --noconfirm --needed ranger python-pillow atool mupdf-tool python-pdftotext nautilus
 echo -e "Done"
 sleep 1s
 
@@ -101,7 +101,7 @@ sleep 1s
 # Installing additional pkgs
 clrscr
 echo -e "Installing additonal pkgs..."
-sudo pacman -S --noconfirm --needed neovim obsidian syncthing npm grim slurp vlc ripgrep rustup tree polkit-kde-agent kdeconnect wl-clipboard github-cli qt5-wayland qt6-wayland unzip openssh docker pavucontrol
+sudo pacman -S --noconfirm --needed neovim obsidian syncthing npm grim slurp vlc ripgrep rustup tree polkit-kde-agent kdeconnect wl-clipboard github-cli qt5-wayland qt6-wayland unzip openssh docker pavucontrol man-db
 rustup default stable
 systemctl --user enable syncthing.service
 sudo systemctl start docker.service
