@@ -43,8 +43,8 @@ sleep 1s
 # Setting up shell(zsh)
 clrscr
 echo -e "Installing and Configuring zsh..."
-sudo pacman -S --noconfirm --needed zsh fd fzf
-yay -S --noconfirm starship autojump ttf-jetbrains-mono-nerd
+sudo pacman -S --noconfirm --needed zsh fd fzf zoxide
+yay -S --noconfirm starship ttf-jetbrains-mono-nerd
 sudo chsh -s /bin/zsh root
 chsh -s /bin/zsh $username
 mkdir /home/$username/.config/zsh-plugins

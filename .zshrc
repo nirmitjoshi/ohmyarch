@@ -24,18 +24,10 @@ snvim ()
 #plugins
 source /home/nirmit/.config/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /home/nirmit/.config/zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+eval "$(zoxide init zsh)"
 
 # fzf search for hidden files options
 export FZF_DEFAULT_COMMAND="fd --type f --type d --hidden"
-
-#autojump
-if [ -f "/usr/share/autojump/autojump.sh" ]; then
-        . /usr/share/autojump/autojump.sh
-elif [ -f "/usr/share/autojump/autojump.zsh" ]; then
-        . /usr/share/autojump/autojump.zsh
-else
-        echo "can't found the autojump script"
-fi
 
 #history
 HISTSIZE=10000 # Set the maximum number of history entries to keep
