@@ -106,7 +106,7 @@ rustup default stable
 systemctl --user enable syncthing.service
 sudo systemctl start docker.service
 sudo systemctl enable docker.service
-yay -S --noconfirm zen-browser-bin vesktop hyprsome-git
+yay -S --noconfirm zen-browser-bin vesktop hyprsome-git bibata-cursor-theme
 echo -e "Done"
 sleep 1s
 
