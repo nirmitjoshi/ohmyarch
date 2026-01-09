@@ -7,6 +7,10 @@ $line_break\
 $character\
 """
 
+right_format = """
+$time\
+"""
+
 add_newline = true
 
 [character]
@@ -34,16 +38,19 @@ format = "[$branch]($style) "
 style = "fg:#cba6f7"
 
 [git_status]
-format = "[(*$conflicted$untracked$modified$staged$renamed$deleted)]($style) [$ahead_behind$stashed]($style) "
+format = "([\\[$conflicted$untracked$modified$staged$renamed$deleted\\]]($style) )[$ahead_behind]($style)[$stashed]($style) "
 style = "fg:#fab387"
 
-conflicted = "!"
+conflicted = "="
 untracked  = "?"
-modified   = "+"
-staged     = "●"
-renamed    = "»"
-deleted    = "×"
-stashed    = "≡"
+modified   = "!"
+staged     = "+"
+renamed    = ">"
+deleted    = "x"
+stashed    = "*"
+ahead      = "⇡${count} "
+behind     = "⇣${count} "
+diverged   = "⇡${ahead_count}⇣${behind_count} "
 
 [git_state]
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
@@ -53,3 +60,9 @@ style = "fg:#7f849c"
 format = "[$duration]($style) "
 style = "fg:#7f849c"
 min_time = 500
+
+[time]
+format = "[$time]($style)"
+style = "fg:#94e2d5"
+disabled = false
+time_format = "%I:%M"
