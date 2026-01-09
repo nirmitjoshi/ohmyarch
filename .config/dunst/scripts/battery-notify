@@ -1,0 +1,47 @@
+#!/usr/bin/env sh
+
+BAT="BAT0"
+P="/sys/class/power_supply/$BAT"
+
+CAP=$(cat "$P/capacity")
+STATUS=$(cat "$P/status")
+
+ENERGY_NOW=$(cat "$P/energy_now" 2>/dev/null || cat "$P/charge_now")
+ENERGY_FULL=$(cat "$P/energy_full" 2>/dev/null || cat "$P/charge_full")
+ENERGY_DESIGN=$(cat "$P/energy_full_design" 2>/dev/null || cat "$P/charge_full_design")
+POWER_NOW=$(cat "$P/power_now" 2>/dev/null || echo 0)
+
+HEALTH=$(( ENERGY_FULL * 100 / ENERGY_DESIGN ))
+
+format_time() {
+  awk -v t="$1" 'BEGIN {
+    h = int(t);
+    m = int((t - h) * 60);
+    if (h > 0) printf "%dh %dm", h, m;
+    else printf "%dm", m;
+  }'
+}
+
+LINE1="battery: $CAP% (health: $HEALTH%)"
+LINE2="status: $STATUS"
+LINE3="time: unavailable"
+
+URGENCY="normal"
+
+if [ "$STATUS" = "Charging" ] && [ "$POWER_NOW" -gt 0 ]; then
+  HOURS=$(awk "BEGIN { print ($ENERGY_FULL - $ENERGY_NOW) / $POWER_NOW }")
+  LINE3="time: $(format_time "$HOURS") to full"
+elif [ "$STATUS" = "Discharging" ] && [ "$POWER_NOW" -gt 0 ]; then
+  HOURS=$(awk "BEGIN { print $ENERGY_NOW / $POWER_NOW }")
+  LINE3="time: $(format_time "$HOURS") left"
+elif [ "$STATUS" = "Full" ]; then
+  LINE3="time: full"
+fi
+
+if [ "$CAP" -le 30 ] && [ "$STATUS" = "Discharging" ]; then
+  URGENCY="critical"
+fi
+
+notify-send -u "$URGENCY" \
+  -h string:x-dunst-stack-tag:battery \
+  "$(printf '%s\n%s\n%s' "$LINE1" "$LINE2" "$LINE3")"

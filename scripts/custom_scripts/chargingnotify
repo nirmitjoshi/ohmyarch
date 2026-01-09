@@ -1,22 +1,53 @@
-#!/bin/sh
+#!/usr/bin/env sh
+# Usage: chargingnotify 1 | chargingnotify 0
 
-# Send a notification displaying that the battery is charging or discharging
-# Pass 1 as an argument for charging, 0 for discharging
-# Example usage: chargingnotify 1
+[ $# -ne 1 ] && printf 'usage: %s 0|1\n' "$0" && exit 1
 
-# Check if argument is passed
-[ $# != 1 ] && printf '0 or 1 must be passed as an argument.\nUsage: %s 0|1\n' "$0" && exit
+BAT="BAT0"
+P="/sys/class/power_supply/$BAT"
 
-export XAUTHORITY=/home/nirmit/.Xauthority
-export DISPLAY=:0
-export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+CAP=$(cat "$P/capacity")
 
-BATTERY_CHARGING=$1
-BATTERY_LEVEL=$(acpi -b | grep "Battery 0" | grep -P -o '[0-9]+(?=%)')
+ENERGY_NOW=$(cat "$P/energy_now" 2>/dev/null || cat "$P/charge_now")
+ENERGY_FULL=$(cat "$P/energy_full" 2>/dev/null || cat "$P/charge_full")
+POWER_NOW=$(cat "$P/power_now" 2>/dev/null || echo 0)
 
-# Send notifications
-if [ "$BATTERY_CHARGING" -eq 1 ]; then
-    notify-send "Charging" "${BATTERY_LEVEL}% of battery charged." -u low -i "battery-charging" -t 5000 -r 9991
-elif [ "$BATTERY_CHARGING" -eq 0 ]; then
-    notify-send "Discharging" "${BATTERY_LEVEL}% of battery remaining." -u low -i "battery" -t 5000 -r 9991
+TARGET=80
+
+format_time() {
+  awk -v t="$1" 'BEGIN {
+    h = int(t);
+    m = int((t - h) * 60);
+    if (h > 0) printf "%dh %dm", h, m;
+    else printf "%dm", m;
+  }'
+}
+
+LINE="time unavailable"
+
+if [ "$POWER_NOW" -gt 0 ]; then
+  if [ "$1" -eq 1 ]; then
+    TARGET_ENERGY=$(awk "BEGIN { print $ENERGY_FULL * $TARGET / 100 }")
+    if [ "$ENERGY_NOW" -lt "$TARGET_ENERGY" ]; then
+      HOURS=$(awk "BEGIN { print ($TARGET_ENERGY - $ENERGY_NOW) / $POWER_NOW }")
+      LINE="charged to ${TARGET}% in $(format_time "$HOURS")"
+    else
+      LINE="already above ${TARGET}%"
+    fi
+  elif [ "$1" -eq 0 ]; then
+    HOURS=$(awk "BEGIN { print $ENERGY_NOW / $POWER_NOW }")
+    LINE="$(format_time "$HOURS") left"
+  fi
+fi
+
+if [ "$1" -eq 1 ]; then
+  notify-send -u low \
+    -h string:x-dunst-stack-tag:battery-state \
+    "charging (${CAP}%)" \
+    "$LINE"
+elif [ "$1" -eq 0 ]; then
+  notify-send -u low \
+    -h string:x-dunst-stack-tag:battery-state \
+    "discharging (${CAP}%)" \
+    "$LINE"
 fi

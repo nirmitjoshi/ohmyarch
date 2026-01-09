@@ -33,7 +33,7 @@ sleep 1s
 # Audio Setup
 clrscr
 echo -e "Setting up Audio..."
-pacman -S --noconfirm --needed bluez bluez-utils pulseaudio pulseaudio-bluetooth pamixer
+pacman -S --noconfirm --needed pipewire pipewire-pulse pipewire-alsa pipewire-jack pavucontrol wireplumber bluez bluez-utils
 systemctl enable bluetooth
 echo -e "Done"
 sleep 1s

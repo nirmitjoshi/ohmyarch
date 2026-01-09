@@ -1,0 +1,9 @@
+font-family = Terminus
+font-size = 16
+
+background-opacity = 0.95
+window-padding-x = 10
+window-padding-color = extend-always
+mouse-scroll-multiplier = 0.25
+
+theme = Catppuccin Mocha

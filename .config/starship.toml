@@ -1,159 +1,55 @@
 format = """
-[](surface0)\
-$os\
-$username\
-[](bg:red fg:surface0)\
 $directory\
-[](fg:red bg:peach)\
 $git_branch\
 $git_status\
-[](fg:peach bg:teagreen)\
-$c\
-$rust\
-$golang\
-$nodejs\
-$php\
-$java\
-$kotlin\
-$haskell\
-$python\
-[](fg:teagreen bg:blue)\
-$docker_context\
-[](fg:blue bg:purple)\
-$time\
-[ ](fg:purple)\
-$line_break$character"""
+$git_state\
+$line_break\
+$character\
+"""
 
-palette = 'catppuccin_mocha_mix'
+add_newline = true
 
-[palettes.catppuccin_mocha_mix]
-rosewater = "#f5e0dc"
-flamingo = "#f2cdcd"
-pink = "#f5c2e7"
-orange = "#cba6f7"
-red = "#ffadad"
-maroon = "#eba0ac"
-purple = "#bdb2ff"
-peach = "#ffd6a5"
-yellow = "#f9e2af"
-green = "#a6e3a1"
-teagreen = "#caffbf"
-sky = "#89dceb"
-sapphire = "#74c7ec"
-blue = "#9bf6ff"
-lavender = "#b4befe"
-text = "#D4DCF6"
-subtext1 = "#bac2de"
-subtext0 = "#a6adc8"
-overlay2 = "#9399b2"
-overlay1 = "#7f849c"
-overlay0 = "#6c7086"
-surface2 = "#585b70"
-surface1 = "#45475a"
-surface0 = "#313244"
-base = "#1e1e2e"
-mantle = "#181825"
-crust = "#11111b"
-
-[os]
-disabled = false
-style = "bg:surface0 fg:text"
-
-[os.symbols]
-Arch = "󰣇"
+[character]
+success_symbol = "[Woof!](bold italic fg:#a6e3a1)"
+error_symbol   = "[Grr!](bold italic fg:#f38ba8)"
 
 [username]
+format = "[$user]($style)@"
+style = "fg:#bac2de"
 show_always = true
-style_user = "bg:surface0 fg:text"
-style_root = "bg:surface0 fg:text"
-format = '[ $user ]($style)'
+
+[hostname]
+format = "[$hostname]($style) "
+style = "fg:#7f849c"
+show_always = true
 
 [directory]
-style = "fg:mantle bg:red"
-format = "[ $path ]($style)"
+format = "[$path]($style) "
+style = "fg:#89b4fa"
 truncation_length = 3
 truncation_symbol = "…/"
 
-[directory.substitutions]
-"Documents" = "󰈙 "
-"Downloads" = " "
-"Music" = "󰝚 "
-"Pictures" = " "
-"Developer" = "󰲋 "
-
 [git_branch]
-symbol = ""
-style = "bg:teagreen"
-format = '[[ $symbol $branch ](fg:base bg:peach)]($style)'
+format = "[$branch]($style) "
+style = "fg:#cba6f7"
 
 [git_status]
-style = "bg:teagreen"
-format = '[[($all_status$ahead_behind )](fg:base bg:peach)]($style)'
+format = "[(*$conflicted$untracked$modified$staged$renamed$deleted)]($style) [$ahead_behind$stashed]($style) "
+style = "fg:#fab387"
 
-[nodejs]
-symbol = ""
-style = "bg:teagreen"
-format = '[[ $symbol( $version) ](fg:base bg:teagreen)]($style)'
+conflicted = "!"
+untracked  = "?"
+modified   = "+"
+staged     = "●"
+renamed    = "»"
+deleted    = "×"
+stashed    = "≡"
 
-[c]
-symbol = " "
-style = "bg:teagreen"
-format = '[[ $symbol( $version) ](fg:base bg:teagreen)]($style)'
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "fg:#7f849c"
 
-[rust]
-symbol = ""
-style = "bg:teagreen"
-format = '[[ $symbol( $version) ](fg:base bg:teagreen)]($style)'
-
-[golang]
-symbol = ""
-style = "bg:teagreen"
-format = '[[ $symbol( $version) ](fg:base bg:teagreen)]($style)'
-
-[php]
-symbol = ""
-style = "bg:teagreen"
-format = '[[ $symbol( $version) ](fg:base bg:teagreen)]($style)'
-
-[java]
-symbol = " "
-style = "bg:teagreen"
-format = '[[ $symbol( $version) ](fg:base bg:teagreen)]($style)'
-
-[kotlin]
-symbol = ""
-style = "bg:teagreen"
-format = '[[ $symbol( $version) ](fg:base bg:teagreen)]($style)'
-
-[haskell]
-symbol = ""
-style = "bg:teagreen"
-format = '[[ $symbol( $version) ](fg:base bg:teagreen)]($style)'
-
-[python]
-symbol = ""
-style = "bg:teagreen"
-format = '[[ $symbol( $version) ](fg:base bg:teagreen)]($style)'
-
-[docker_context]
-symbol = ""
-style = "bg:mantle"
-format = '[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)'
-
-[time]
-disabled = false
-time_format = "%R"
-style = "bg:purple"
-format = '[[ $time ](fg:mantle bg:purple)]($style)'
-
-[line_break]
-disabled = false
-
-[character]
-disabled = false
-success_symbol = '[](bold fg:purple)'
-error_symbol = '[](bold fg:red)'
-vimcmd_symbol = '[](bold fg:purple)'
-vimcmd_replace_one_symbol = '[](bold fg:blue)'
-vimcmd_replace_symbol = '[](bold fg:blue)'
-vimcmd_visual_symbol = '[](bold fg:lavender)'
+[cmd_duration]
+format = "[$duration]($style) "
+style = "fg:#7f849c"
+min_time = 500

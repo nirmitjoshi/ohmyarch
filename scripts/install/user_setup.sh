@@ -7,7 +7,7 @@ source /ohmyarch/scripts/install/preferences.sh
 # Setting up dotfiles
 clrscr
 echo -e "Setting up Hyprland..."
-sudo pacman -S --needed --noconfirm hyprland hyprpaper hyprlock kitty git stow
+sudo pacman -S --needed --noconfirm hyprland hyprpaper hyprlock ghostty git stow
 
 sudo rm -r /home/$username/.config/hypr  # had errors in stow due to pre-created config files
 sudo rm -r /home/$username/.config/kitty # ,,
@@ -43,8 +43,8 @@ sleep 1s
 # Setting up shell(zsh)
 clrscr
 echo -e "Installing and Configuring zsh..."
-sudo pacman -S --noconfirm --needed zsh fd fzf zoxide
-yay -S --noconfirm starship ttf-jetbrains-mono-nerd
+sudo pacman -S --noconfirm --needed zsh fd eza fzf zoxide
+yay -S --noconfirm starship otf-geist-mono-nerd terminus-font
 sudo chsh -s /bin/zsh root
 chsh -s /bin/zsh $username
 mkdir /home/$username/.config/zsh-plugins
@@ -70,7 +70,7 @@ clrscr
 echo -e "Setting up Notifications..."
 sudo pacman -S --noconfirm --needed libnotify dunst cronie acpi
 yay -S --noconfirm brillo
-command="/home/$username/scripts/custom_scripts/batterynotify"
+command="/home/$username/scripts/custom_scripts/batterywarning"
 job="*/3 * * * * $command"
 cat <(fgrep -i -v "$command" <(crontab -l)) <(echo "$job") | crontab -
 sudo systemctl enable cronie
@@ -85,23 +85,22 @@ sleep 1s
 # Setting up Filemanager
 clrscr
 echo -e "Setting up Ranger(cli file manager) && Nautilus..."
-yay -S --noconfirm --needed ranger python-pillow atool mupdf-tool python-pdftotext nautilus
+yay -S --noconfirm --needed ranger python-pillow atool mupdf-tool python-pdftotext
+sudo pacman -S nautilus
 echo -e "Done"
 sleep 1s
 
 # Setting up Applications manager
 clrscr
-echo -e "Setting up Rofi(wayland fork)..."
-yay -S --noconfirm --needed rofi
-sudo cp /home/$username/scripts/rofi/rofi-audio.desktop /usr/share/applications/
-sudo cp /home/$username/scripts/rofi/rofi-wifi-menu.desktop /usr/share/applications/
+echo -e "Setting up Vicinae..."
+yay -S --noconfirm --needed vicinae-bin
 echo -e "Done"
 sleep 1s
 
 # Installing additional pkgs
 clrscr
 echo -e "Installing additonal pkgs..."
-sudo pacman -S --noconfirm --needed neovim obsidian syncthing npm grim slurp vlc ripgrep rustup tree polkit-kde-agent kdeconnect wl-clipboard github-cli qt5-wayland qt6-wayland unzip openssh docker pavucontrol man-db
+sudo pacman -S --noconfirm --needed helix obsidian syncthing npm grim slurp vlc ripgrep rustup tree polkit-kde-agent kdeconnect wl-clipboard github-cli qt5-wayland qt6-wayland unzip openssh docker man-db
 rustup default stable
 systemctl --user enable syncthing.service
 sudo systemctl start docker.service

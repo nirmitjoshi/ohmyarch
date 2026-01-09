@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+send_notification() {
+  PCT=$(brillo -G)
+
+  notify-send -u normal \
+    -h string:x-dunst-stack-tag:brightness \
+    -h int:value:"$PCT" \
+    "brightness ${PCT}%"
+}
+
+case "$1" in
+  up)
+    sudo brillo -A 5
+    send_notification
+    ;;
+  down)
+    sudo brillo -U 5
+    send_notification
+    ;;
+esac

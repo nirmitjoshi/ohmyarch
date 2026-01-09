@@ -1,0 +1,39 @@
+#!/usr/bin/env sh
+
+SINK="@DEFAULT_AUDIO_SINK@"
+MODE="$1"
+
+STATE=$(wpctl get-volume "$SINK")
+
+case "$MODE" in
+  up)
+    if echo "$STATE" | grep -q MUTED; then
+      wpctl set-mute "$SINK" 0
+    fi
+    wpctl set-volume "$SINK" 0.05+ -l 1.0
+    ;;
+  down)
+    if echo "$STATE" | grep -q MUTED; then
+      wpctl set-mute "$SINK" 0
+    fi
+    wpctl set-volume "$SINK" 0.05-
+    ;;
+  mute)
+    wpctl set-mute "$SINK" toggle
+    ;;
+esac
+
+STATE=$(wpctl get-volume "$SINK")
+
+if echo "$STATE" | grep -q MUTED; then
+  notify-send -u normal \
+    -h string:x-dunst-stack-tag:volume \
+    -h int:value:0 \
+    "volume muted"
+else
+  VOL=$(echo "$STATE" | awk '{print int($2 * 100)}')
+  notify-send -u normal \
+    -h string:x-dunst-stack-tag:volume \
+    -h int:value:"$VOL" \
+    "volume $VOL%"
+fi

@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+BAT="BAT0"
+P="/sys/class/power_supply/$BAT"
+
+LOW_WARNING_LEVEL=30
+HIGH_WARNING_LEVEL=75
+
+CAP=$(cat "$P/capacity")
+STATUS=$(cat "$P/status")
+
+if [ "$STATUS" = "Discharging" ] && [ "$CAP" -le "$LOW_WARNING_LEVEL" ]; then
+  notify-send -u critical \
+    -h string:x-dunst-stack-tag:battery-low \
+    "battery at ${CAP}%" \
+    "please charge"
+elif [ "$STATUS" = "Charging" ] && [ "$CAP" -ge "$HIGH_WARNING_LEVEL" ]; then
+  notify-send -u normal \
+    -h string:x-dunst-stack-tag:battery-charged \
+    "battery at ${CAP}%" \
+    "remove charger"
+fi
